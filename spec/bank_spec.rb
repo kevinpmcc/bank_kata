@@ -10,19 +10,43 @@ describe Bank do
   end
 
   describe 'deposit' do
-    it 'increase the account_balance by the passed argument' do
+    it 'increases the account_balance by the passed argument' do
       bank = Bank.new
       bank.deposit(1000)
       expect(bank.account_balance).to eq 1000
     end
   end
 
-describe 'withdraw' do
+  describe 'withdraw' do
     it 'decreases the account_balance by the passed argument' do
       bank = Bank.new
       bank.deposit(2000)
       bank.withdraw(500)
       expect(bank.account_balance).to eq 1500
+    end
+  end
+
+  describe 'print_statement' do
+    it 'prints all previous transactions including balance, date and debit/credit' do
+      bank = Bank.new
+      bank.deposit(1000)
+      bank.deposit(2000)
+      bank.deposit(500)
+      expect(bank.print_statement).to eq 'date || credit || debit || balance
+18/10/2016 || || 500.00 || 2500.00
+18/10/2016 || 2000.00 || || 3000.00
+18/10/2016 || 1000.00 || || 1000.00'
+    end
+  end
+end
+
+
+describe Transaction do
+
+  describe 'initialize' do
+    it 'takes an amount and a type' do
+      transaction = Transaction.new(credit: 2000, balance: 3000)
+      expect(transaction.credit).to eq 2000
     end
   end
 
